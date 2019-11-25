@@ -75,7 +75,7 @@
       // wstawić stworzony element DOM do znalezionego kontenera menu.
       menuContainer.appendChild(thisProduct.element);
     }
-f
+
     getElements() {
       const thisProduct = this;
 
@@ -84,6 +84,7 @@ f
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion() {
@@ -92,7 +93,7 @@ f
       trigger.addEventListener('click', function() {
         event.preventDefault();
         thisProduct.element.classList.toggle('active');
-        const activeProducts = document.querySelectorAll('.active');
+        const activeProducts = document.querySelectorAll('.product.active');
         for (let activeProduct of activeProducts) {
           if (activeProduct !== thisProduct.element) {
             activeProduct.classList.remove('active');
@@ -135,6 +136,15 @@ f
           }
           else if(!optionSelected && option.default) {
             price -= option.price;
+          }
+          const activeImages = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
+          console.log(activeImages);
+          if(optionSelected) {
+            for(let activeImage of activeImages)
+              activeImage.classList.add(classNames.menuProduct.imageVisible);
+          } else {
+            for(let activeImage of activeImages)
+              activeImage.classList.remove(classNames.menuProduct.imageVisible)
           }
         }
       }
