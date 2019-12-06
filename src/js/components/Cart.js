@@ -1,4 +1,4 @@
-import {select, classNames, settings, templates} from '../settings';
+import {select, classNames, settings, templates} from '../settings.js';
 import {utils} from '../utils.js';
 import {CartProduct} from './CartProduct.js';
 
@@ -122,8 +122,6 @@ export class Cart {
     fetch(url, options)
       .then(function(response) {
         return response.json();
-      }).then(function(parsedResponse) {
-        console.log('parsedResponse', parsedResponse);
       });
   }
 }
