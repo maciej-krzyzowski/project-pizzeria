@@ -109,7 +109,7 @@ export const settings = {
     tableIdAttribute: 'data-table',
   },
   db: {
-    url: 'https://maciej-krzyzowski.github.io/project-pizzeria/dist/3131',
+    url: 'https://maciej-krzyzowski.github.io/project-pizzeria/dist',
     product: 'product',
     order: 'order',
     booking: 'booking',
