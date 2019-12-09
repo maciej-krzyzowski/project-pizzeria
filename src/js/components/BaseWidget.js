@@ -1,6 +1,5 @@
-
 export class BaseWidget {
-  constuctor(wrapperElement, initialValue) {
+  constructor(wrapperElement, initialValue) {
     const thisWidget = this;
 
     thisWidget.dom = {};
@@ -51,5 +50,3 @@ export class BaseWidget {
     thisWidget.dom.wrapper.dispatchEvent(event);
   }
 }
-
-export default BaseWidget;

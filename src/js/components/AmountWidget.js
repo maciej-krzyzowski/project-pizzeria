@@ -7,15 +7,13 @@ export class AmountWidget extends BaseWidget{
 
     const thisWidget = this;
 
-    // thisWidget.dom = {};
-    // thisWidget.dom.wrapper = wrapper;
     thisWidget.getElements();
     thisWidget.initActions();
   }
 
   getElements() {
     const thisWidget = this;
-    console.log(thisWidget.dom.wrapper);
+
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.amount.input);
     thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkDecrease);
     thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(select.widgets.amount.linkIncrease);
@@ -35,12 +33,12 @@ export class AmountWidget extends BaseWidget{
 
     thisWidget.dom.linkDecrease.addEventListener('click', function(event) {
       event.preventDefault();
-      thisWidget.value = thisWidget.dom.input.value --;
+      thisWidget.value--;
     });
 
     thisWidget.dom.linkIncrease.addEventListener('click', function(event) {
       event.preventDefault();
-      thisWidget.value = thisWidget.dom.input.value ++;
+      thisWidget.value++;
     });
   }
 
