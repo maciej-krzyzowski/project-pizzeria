@@ -16,10 +16,8 @@ export class DatePicker extends BaseWidget {
     const thisWidget = this;
 
     thisWidget.minDate = new Date(thisWidget.value);
-    console.log(thisWidget.minDate);
 
     thisWidget.maxDate = utils.addDays(thisWidget.minDate, 14);
-    console.log(thisWidget.maxDate);
 
 
     flatpickr(thisWidget.dom.input, { // eslint-disable-line
