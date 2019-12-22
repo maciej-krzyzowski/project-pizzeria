@@ -206,7 +206,7 @@
   "event": [
     {
       "id": 1,
-      "date": "2019-12-18",
+      "date": "2019-12-24",
       "hour": "12:30",
       "table": 1,
       "repeat": false,
@@ -216,6 +216,16 @@
     },
     {
       "id": 2,
+      "date": "2019-12-27",
+      "hour": "13:30",
+      "table": 2,
+      "repeat": false,
+      "duration": 4,
+      "ppl": 3,
+      "starters": []
+    },
+    {
+      "id": 3,
       "date": "2019-12-05",
       "hour": "16:00",
       "table": 3,
@@ -225,7 +235,7 @@
       "starters": ["bread", "lemonWater"]
     },
     {
-      "id": 3,
+      "id": 4,
       "date": "2019-01-01",
       "hour": "12:00",
       "table": 3,
@@ -235,7 +245,7 @@
       "starters": ["bread", "lemonWater"]
     },
     {
-      "id": 4,
+      "id": 5,
       "date": "2019-01-05",
       "hour": "13:00",
       "table": 2,
@@ -245,7 +255,7 @@
       "starters": []
     },
     {
-      "id": 5,
+      "id": 6,
       "date": "2019-01-04",
       "hour": "18:00",
       "table": 2,
@@ -256,16 +266,6 @@
     }
   ],
   "booking": [
-   { "id": 1,
-      "date": "2019-12-01",
-      "hour": "20:30",
-      "table": 2,
-      "repeat": false,
-      "duration": 3,
-      "ppl": 3,
-      "starters": []
-   }
-
   ]
 }
 

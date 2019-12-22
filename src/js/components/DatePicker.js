@@ -18,10 +18,14 @@ export class DatePicker extends BaseWidget {
         thisWidget.minDate = new Date(thisWidget.value);
 
         thisWidget.maxDate = utils.addDays(thisWidget.minDate, 14);
+        
+        thisWidget.dom.input.addEventListener('input', function(){
+            thisWidget.value = thisWidget.dom.input.value;
+        })
 
-
-    flatpickr(thisWidget.dom.input, { // eslint-disable-line
-            dateFormat: 'd.m.Y',
+        flatpickr(thisWidget.dom.input, { // eslint-disable-line
+            enableTime: false,
+            dateFormat: 'Y-m-d',
             defalutDate: thisWidget.minDate,
             minDate: thisWidget.minDate,
             maxDate: thisWidget.maxDate,
@@ -33,9 +37,6 @@ export class DatePicker extends BaseWidget {
             locale: {
                 firstDayOfWeek: 1,
             },
-            onChange: function(dateStr) {
-                thisWidget.value = dateStr;
-            },
         });
     }
 
@@ -45,5 +46,8 @@ export class DatePicker extends BaseWidget {
 
     isValid() {
         return true;
+    }
+
+    renderValue(){
     }
 }
