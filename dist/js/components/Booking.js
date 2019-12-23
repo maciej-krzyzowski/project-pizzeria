@@ -12,6 +12,7 @@ export class Booking {
         thisBooking.render(wrapperBooking);
         thisBooking.initWidgets();
         thisBooking.getData();
+
     }
 
     render(element) {
@@ -24,10 +25,16 @@ export class Booking {
         element.appendChild(thisBooking.dom.wrapper);
 
         thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+        thisBooking.peopleAmountInput = thisBooking.dom.peopleAmount.querySelector(select.widgets.amount.input);
         thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+        thisBooking.hoursAmountInput = thisBooking.dom.hoursAmount.querySelector(select.widgets.amount.input);
         thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
         thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
         thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+        thisBooking.dom.submitBookTable = thisBooking.dom.wrapper.querySelector(select.booking.submit);
+        thisBooking.checkbox = thisBooking.dom.wrapper.querySelector('.checkbox');
+        thisBooking.dom.inputPhone = thisBooking.dom.wrapper.querySelector(select.cart.phone);
+        thisBooking.dom.inputAddress = thisBooking.dom.wrapper.querySelector(select.cart.address);
     }
 
     initWidgets() {
@@ -40,6 +47,11 @@ export class Booking {
 
         thisBooking.dom.wrapper.addEventListener('updated', function() {
             thisBooking.updateDOM();
+        });
+
+        thisBooking.dom.submitBookTable.addEventListener('click', function(event){
+            event.preventDefault();
+            thisBooking.sendBooked();
         });
     }
 
@@ -59,15 +71,11 @@ export class Booking {
             eventsRepeat: settings.db.repeatParam + '&' + utils.queryParams(endDate),
         };
 
-        // console.log('getData params', params);
-
         const urls = {
             booking: settings.db.url + '/' + settings.db.booking + '?' + params.booking,
             eventsCurrent: settings.db.url + '/' + settings.db.event + '?' + params.eventsCurrent,
             eventsRepeat: settings.db.url + '/' + settings.db.event + '?' + params.eventsRepeat,
         };
-
-        // console.log('getData urls', urls);
 
         Promise.all([
             fetch(urls.booking),
@@ -86,9 +94,42 @@ export class Booking {
             });
     }
 
+    sendBooked() {
+        const thisBooking = this;
+
+        const url = settings.db.url + '/' + settings.db.booking;
+        const payload = {
+            id: thisBooking.lastId + 1,
+            date: thisBooking.date,
+            hour: thisBooking.hourPicker.value,
+            table: thisBooking.bookedTableId,
+            duration: thisBooking.hoursAmountInput.value,
+            people: thisBooking.peopleAmountInput.value,
+            phone: thisBooking.dom.inputPhone.value,
+            address: thisBooking.dom.inputAddress.value,
+            repeat: false,
+        };
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        };
+
+        fetch(url, options)
+            .then(function(response) {
+                return response.json();
+            });
+    }
+
     parseData(bookings, eventsCurrent, eventsRepeat) {
         const thisBooking = this;
         thisBooking.booked = {};
+
+        if (bookings.length) thisBooking.lastId = bookings[bookings.length - 1].id;
+        else thisBooking.lastId = 0;
 
         for(let booking of bookings) {
             thisBooking.makeBooked(booking.date, booking.hour, booking.duration, booking.table);
@@ -133,11 +174,24 @@ export class Booking {
             if(!isNaN(tableId)) {
                 tableId = parseInt(tableId);
             }
-            if(thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)) {
+
+            const isReserved = thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId);
+
+            if(isReserved) {
                 table.classList.add(classNames.booking.tableBooked);
             } else {
                 table.classList.remove(classNames.booking.tableBooked);
             }
+            const onTableClick = function(){
+                if(!isReserved) {
+                    table.classList.toggle(classNames.booking.tableBooked);
+                    thisBooking.bookedTableId = tableId;
+                }
+            };
+            
+            table.removeEventListener('click', onTableClick);
+            table.addEventListener('click', onTableClick);
         }
+
     }
 }

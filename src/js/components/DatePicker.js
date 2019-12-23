@@ -21,13 +21,13 @@ export class DatePicker extends BaseWidget {
         
         thisWidget.dom.input.addEventListener('input', function(){
             thisWidget.value = thisWidget.dom.input.value;
-        })
+        });
 
         flatpickr(thisWidget.dom.input, { // eslint-disable-line
             enableTime: false,
             dateFormat: 'Y-m-d',
-            defalutDate: thisWidget.minDate,
-            minDate: thisWidget.minDate,
+            defalutDate: 'today',
+            minDate: 'today',
             maxDate: thisWidget.maxDate,
             disable: [
                 function(date) {

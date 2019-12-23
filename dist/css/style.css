@@ -664,7 +664,7 @@ input.error, select.error {
 }
 
 .floor-plan .table.booked {
-  cursor: not-allowed;
+  cursor: pointer;
   color: #999999;
 }
 
