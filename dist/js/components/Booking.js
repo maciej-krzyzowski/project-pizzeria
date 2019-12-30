@@ -146,6 +146,7 @@ export class Booking {
             }
         }
         thisBooking.updateDOM();
+        thisBooking.rangeSliderColor();
     }
     
     makeBooked(date, hour, duration, table) {
@@ -192,5 +193,32 @@ export class Booking {
             });
         }
 
+    }
+
+    rangeSliderColor() {
+        const thisBooking = this;
+      
+        const bookedHours = thisBooking.booked[thisBooking.date];
+        const sliderDataColors = [];
+        const rangeSlider = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.slider);
+      
+        for (let bookedHour in bookedHours){
+            const firstOfInterval = 0;
+            const secondOfInterval = (((bookedHour - 12) + .5 ) * 100) / 12;
+            if ( bookedHour < 24 ) {
+                if
+                (bookedHours[bookedHour].length <=1) {
+                    sliderDataColors.push ('/*' + bookedHour + '*/green ' + firstOfInterval + '%, green ' + secondOfInterval + '%');
+                } else if
+                (bookedHours[bookedHour].length == 2) {
+                    sliderDataColors.push ('/*' + bookedHour + '*/orange ' + firstOfInterval + '%, orange ' + secondOfInterval + '% ');
+                } else if
+                (bookedHours[bookedHour].length >= 3){
+                    sliderDataColors.push ('/*' + bookedHour + '*/red ' + firstOfInterval + '%, red ' + secondOfInterval + '%');
+                }
+            }
+        }
+        sliderDataColors.sort();
+        rangeSlider.style.background = 'linear-gradient(to right, ' + sliderDataColors + ')';
     }
 }
