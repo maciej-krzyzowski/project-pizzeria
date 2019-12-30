@@ -52,6 +52,7 @@ export class Booking {
         thisBooking.dom.submitBookTable.addEventListener('click', function(event){
             event.preventDefault();
             thisBooking.sendBooked();
+            alert('Reservation accepted!');
         });
     }
 
@@ -138,7 +139,7 @@ export class Booking {
         for(let eventCurrent of eventsCurrent) {
             thisBooking.makeBooked(eventCurrent.date, eventCurrent.hour, eventCurrent.duration, eventCurrent.table);
         }
-
+        
         for(let eventRepeat of eventsRepeat){
             for(let rangeDate = thisBooking.datePicker.minDate; rangeDate <= thisBooking.datePicker.maxDate; rangeDate = utils.addDays(rangeDate, 1)) {
                 thisBooking.makeBooked(utils.dateToStr(rangeDate), eventRepeat.hour, eventRepeat.duration, eventRepeat.table);
@@ -146,7 +147,7 @@ export class Booking {
         }
         thisBooking.updateDOM();
     }
-
+    
     makeBooked(date, hour, duration, table) {
         const thisBooking = this;
         const startHour = utils.hourToNumber(hour);
@@ -182,15 +183,13 @@ export class Booking {
             } else {
                 table.classList.remove(classNames.booking.tableBooked);
             }
-            const onTableClick = function(){
+            
+            table.addEventListener('click', function(){
                 if(!isReserved) {
                     table.classList.toggle(classNames.booking.tableBooked);
                     thisBooking.bookedTableId = tableId;
                 }
-            };
-            
-            table.removeEventListener('click', onTableClick);
-            table.addEventListener('click', onTableClick);
+            });
         }
 
     }

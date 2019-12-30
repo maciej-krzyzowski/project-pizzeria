@@ -569,9 +569,10 @@ input.error, select.error {
 
 .rangeSlider {
   top: 12px;
-  background: #e6e6e6;
+  background: green;
   box-shadow: none;
   height: 12px;
+  border-radius: 10px;
 }
 
 .rangeSlider__handle {
@@ -588,8 +589,10 @@ input.error, select.error {
 .rangeSlider__handle__horizontal {
   width: 24px;
   height: 24px;
-  top: -6px;
   background: #333;
+  position: relative;
+  border-radius: 50%;
+  top: -5px;
 }
 
 .rangeSlider__fill {
@@ -841,5 +844,193 @@ input.error, select.error {
   text-align: center;
   margin: 0 6px;
   padding: 0;
+}
+
+.home-wrapper {
+  margin: 42px auto;
+  padding: 72px 48px;
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+
+.home-tiles {
+  display: -ms-flexbox;
+  display: flex;
+  margin: 41px 0 6px 0;
+}
+
+.btn-home {
+  font-family: "Oswald", sans-serif;
+  color: #fff;
+  height: 120px;
+  -ms-flex: 1;
+      flex: 1;
+  border-radius: 3px;
+  padding: 38px 0;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 26px;
+  background-size: cover;
+}
+
+.btn-order {
+  background-image: url("../../images/home/pizza-1.jpg");
+  margin-right: 2.5px;
+  background-position: center;
+}
+
+.btn-booking {
+  background-image: url("../../images/home/pizza-2.jpg");
+  margin-left: 2.5px;
+  background-position: center;
+}
+
+.opening-hours {
+  font-family: "Oswald", sans-serif;
+  color: #fff;
+  height: 120px;
+  border-radius: 3px;
+  text-align: center;
+  background-color: #ff6b6b;
+  padding: 27px 0;
+}
+
+.home-opening {
+  border: 0;
+  margin: 0;
+  font-size: 26px;
+}
+
+.home-date {
+  border: 0;
+  margin: 0;
+  font-size: 13px;
+}
+
+.home-carusel {
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 102px;
+}
+
+.home-carusel-img {
+  background-image: url("../../images/home/pizza-3.jpg");
+  -ms-flex: 2;
+      flex: 2;
+  border-radius: 3px;
+  background-size: cover;
+  background-position: center;
+  height: 193px;
+  margin: 0 39px 0 1px;
+  padding-right: 45px;
+}
+
+.carousel-reviews {
+  -ms-flex: 5;
+      flex: 5;
+}
+
+.revies {
+  display: none;
+}
+
+.revies-active {
+  display: block;
+  z-index: 2;
+}
+
+.title {
+  font-size: 14px;
+  margin: 19px 0 0 0;
+}
+
+.paragraph {
+  margin: 12px 0 0 0;
+}
+
+.author {
+  margin: 24px 0 0 0;
+}
+
+.home-switch {
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  padding: 0 264.5px;
+}
+
+.dot {
+  height: 10px;
+  margin: 37px 8px 0 8px;
+  -ms-flex: 1;
+      flex: 1;
+  background-color: #E6E6E6;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot-active {
+  background-color: #A8A59C;
+}
+
+.gallery {
+  margin-top: 91px;
+}
+
+.gallery-row {
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.img {
+  -ms-flex: 1;
+      flex: 1;
+  position: relative;
+}
+
+.img-margin {
+  margin: 0 12px;
+}
+
+.img-home {
+  width: 194px;
+  height: 193px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 3px;
+}
+
+.icon {
+  display: none;
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 23px;
+}
+
+.img:hover .icon {
+  display: block;
+}
+
+.img-home:hover {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.icon > .fas:hover {
+  color: #FD6B6B;
+}
+
+.btn-social-media {
+  margin-top: 18px;
+}
+
+.btn-social-media > a {
+  color: #ff6b6b;
 }
 /*# sourceMappingURL=style.css.map */

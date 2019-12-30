@@ -1,6 +1,7 @@
 import {Product} from './components/Product.js';
 import {Cart} from './components/Cart.js';
 import {Booking} from './components/Booking.js';
+import {Hero} from './components/Hero.js';
 import {select, settings, classNames} from './settings.js';
 
 
@@ -47,8 +48,10 @@ const app = {
 
         thisApp.pages = Array.from(document.querySelector(select.containerOf.pages).children);
         thisApp.navLinks = Array.from(document.querySelectorAll(select.nav.links));
+       
+        const buttonsHome = document.querySelectorAll('.btn-home');
 
-        thisApp.activatePage(thisApp.checkCurrentPage());
+        thisApp.activatePage('home');
 
         for(let link of thisApp.navLinks) {
             link.addEventListener('click', function(event) {
@@ -58,31 +61,42 @@ const app = {
                 thisApp.activatePage(pageId);
             });
         }
-    },
 
-    checkCurrentPage() {
-        return window.location.hash.replace('#', '');
+        for(let button of buttonsHome) {
+            button.addEventListener('click', function(event) {
+                const clickedElement = this;
+                event.preventDefault();
+                const pageId = clickedElement.getAttribute('href').replace('#', '');
+                thisApp.activatePage(pageId);
+            });
+        }
     },
 
     activatePage: function(pageId) {
         const thisApp = this;
-
+        thisApp.i = 0;
         for(let link of thisApp.navLinks) {
             link.classList.toggle(classNames.nav.active, link.getAttribute('href') == '#' + pageId);
         }
-
         for(let page of thisApp.pages) {
             page.classList.toggle(classNames.nav.active, page.getAttribute('id') == pageId);
         }
-
         window.location.hash = '#' + pageId;
+        window.scroll(0, -100);
     },
 
-    initBooking: function() {
+    initBooking: function () {
         const thisApp = this;
 
         const wrapperBooking = document.querySelector(select.containerOf.booking);
         thisApp.booking = new Booking(wrapperBooking);
+    },
+
+    initHero: function () {
+        const thisApp = this;
+
+        const wrapperHero = document.querySelector('.home-carusel');
+        thisApp.hero = new Hero(wrapperHero);
     },
 
     init: function() {
@@ -95,9 +109,13 @@ const app = {
         // console.log('templates:', templates);
 
         thisApp.initPages();
+        // setInterval(function(){
+        //     thisApp.caruselHome();
+        // }, 3000);
         thisApp.initData();
         thisApp.initCart();
         thisApp.initBooking();
+        thisApp.initHero();
     },
 };
 

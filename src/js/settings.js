@@ -39,6 +39,7 @@ export const select = {
             wrapper: '.hour-picker',
             input: 'input[type="range"]',
             output: '.output',
+            slider: '.rangeSlider',
         },
     },
     cart: {
@@ -71,6 +72,9 @@ export const select = {
 };
 
 export const classNames = {
+    carusel: {
+        wrapperActive: 'revies-active',
+    },
     menuProduct: {
         wrapperActive: 'active',
         imageVisible: 'active',

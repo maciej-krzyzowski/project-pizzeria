@@ -1,4 +1,5 @@
 .vscode
+.DS_Store
 
 # Logs
 logs
@@ -68,6 +69,7 @@ typings/
 
 # nuxt.js build output
 .nuxt
+dist
 
 # vuepress build output
 .vuepress/dist
@@ -80,5 +82,3 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
-
-.DS_Store
