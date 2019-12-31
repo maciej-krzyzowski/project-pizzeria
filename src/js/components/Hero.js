@@ -25,10 +25,10 @@ export class Hero {
             wrapper.classList.remove(classNames.carusel.wrapperActive);
         }
         for(let dot of thisHero.dots){
-            dot.classList.remove('dot-active');
+            dot.classList.remove(classNames.carusel.dotActive);
         }
         thisHero.caruselWrapper[thisHero.i].classList.add(classNames.carusel.wrapperActive);
-        thisHero.dots[thisHero.i].classList.add('dot-active');
+        thisHero.dots[thisHero.i].classList.add(classNames.carusel.dotActive);
     }
     
     caruselHome() {
