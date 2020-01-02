@@ -67,14 +67,15 @@ export class Booking {
 
         for (let table of thisBooking.dom.tables) {
             const tableId = thisBooking.getTableId(table);
-
-            table.addEventListener('click', function(event) {
+            
+            table.addEventListener('click', function() {
                 const tableBookedClass = classNames.booking.tableBooked;
 
-                if (!event.target.classList.value.includes(tableBookedClass)) {
-                    table.classList.add(tableBookedClass);
+                if (!(thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId))) {
+                    table.classList.toggle(tableBookedClass);
                     thisBooking.bookedTableId = tableId;
                 }
+                console.log('dupa');
             });
         }
     }
@@ -192,9 +193,8 @@ export class Booking {
 
         for (let table of thisBooking.dom.tables) {
             const tableId = thisBooking.getTableId(table);
-            const isReserved = thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId);
 
-            if (isReserved) table.classList.add(classNames.booking.tableBooked);
+            if (thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)) table.classList.add(classNames.booking.tableBooked);
             else table.classList.remove(classNames.booking.tableBooked);
         }
     }
