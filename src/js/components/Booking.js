@@ -11,8 +11,8 @@ export class Booking {
 
         thisBooking.render(wrapperBooking);
         thisBooking.initWidgets();
+        thisBooking.initEventlisteners();
         thisBooking.getData();
-
     }
 
     render(element) {
@@ -44,6 +44,20 @@ export class Booking {
         thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
         thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
         thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
+    }
+
+    getTableId(table) {
+        let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+
+        if(!isNaN(tableId)) {
+            tableId = parseInt(tableId);
+        }
+
+        return tableId;
+    }
+
+    initEventlisteners() {
+        const thisBooking = this;
 
         thisBooking.dom.wrapper.addEventListener('updated', function() {
             thisBooking.updateDOM();
@@ -54,6 +68,19 @@ export class Booking {
             thisBooking.sendBooked();
             alert('Reservation accepted!');
         });
+
+        for (let table of thisBooking.dom.tables) {
+            const tableId = this.getTableId(table);
+
+            table.addEventListener('click', function(e) {
+                const tableBookedClass = classNames.booking.tableBooked;
+
+                if(!e.target.classList.value.includes(tableBookedClass)) {
+                    table.classList.add(tableBookedClass);
+                    thisBooking.bookedTableId = tableId;
+                }
+            });
+        }
     }
 
     getData() {
@@ -139,7 +166,7 @@ export class Booking {
         for(let eventCurrent of eventsCurrent) {
             thisBooking.makeBooked(eventCurrent.date, eventCurrent.hour, eventCurrent.duration, eventCurrent.table);
         }
-        
+
         for(let eventRepeat of eventsRepeat){
             for(let rangeDate = thisBooking.datePicker.minDate; rangeDate <= thisBooking.datePicker.maxDate; rangeDate = utils.addDays(rangeDate, 1)) {
                 thisBooking.makeBooked(utils.dateToStr(rangeDate), eventRepeat.hour, eventRepeat.duration, eventRepeat.table);
@@ -148,7 +175,7 @@ export class Booking {
         thisBooking.updateDOM();
         thisBooking.rangeSliderColor();
     }
-    
+
     makeBooked(date, hour, duration, table) {
         const thisBooking = this;
         const startHour = utils.hourToNumber(hour);
@@ -170,13 +197,9 @@ export class Booking {
 
         thisBooking.date = thisBooking.datePicker.value;
         thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
-        
-        for(let table of thisBooking.dom.tables){
-            let tableId = table.getAttribute(settings.booking.tableIdAttribute);
-            if(!isNaN(tableId)) {
-                tableId = parseInt(tableId);
-            }
 
+        for(let table of thisBooking.dom.tables){
+            const tableId = this.getTableId(table);
             const isReserved = thisBooking.booked[thisBooking.date] && thisBooking.booked[thisBooking.date][thisBooking.hour] && thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId);
 
             if(isReserved) {
@@ -184,24 +207,16 @@ export class Booking {
             } else {
                 table.classList.remove(classNames.booking.tableBooked);
             }
-            
-            table.addEventListener('click', function(){
-                if(!isReserved) {
-                    table.classList.toggle(classNames.booking.tableBooked);
-                    thisBooking.bookedTableId = tableId;
-                }
-            });
         }
-
     }
 
     rangeSliderColor() {
         const thisBooking = this;
-      
+
         const bookedHours = thisBooking.booked[thisBooking.date];
         const sliderDataColors = [];
         const rangeSlider = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.slider);
-      
+
         for (let bookedHour in bookedHours){
             const firstOfInterval = 0;
             const secondOfInterval = (((bookedHour - 12) + .5 ) * 100) / 12;
