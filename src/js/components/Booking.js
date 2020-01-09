@@ -115,6 +115,9 @@ export class Booking {
             })
             .then(function([bookings, eventsCurrent, eventsRepeat]) {
                 thisBooking.parseData(bookings, eventsCurrent, eventsRepeat);
+            })
+            .catch((error) => {
+                console.warn('CONNECTION ERROR', error);
             });
     }
 
@@ -144,6 +147,9 @@ export class Booking {
         fetch(url, options)
             .then(function(response) {
                 return response.json();
+            })
+            .catch((error) => {
+                console.warn('CONNECTION ERROR', error);
             });
     }
 

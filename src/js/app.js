@@ -27,6 +27,9 @@ const app = {
             .then(function(parsedResponse){
                 thisApp.data.products = parsedResponse;
                 thisApp.initMenu();
+            })
+            .catch((error) => {
+                console.warn('CONNECTION ERROR', error);
             });
     },
 
@@ -82,7 +85,9 @@ const app = {
             page.classList.toggle(classNames.nav.active, page.getAttribute('id') == pageId);
         }
         window.location.hash = '#' + pageId;
-        window.scroll(0, -100);
+        setTimeout(function () {
+            window.scroll(0, -100);
+        }, 0);
     },
 
     initBooking: function () {
@@ -109,9 +114,6 @@ const app = {
         // console.log('templates:', templates);
 
         thisApp.initPages();
-        // setInterval(function(){
-        //     thisApp.caruselHome();
-        // }, 3000);
         thisApp.initData();
         thisApp.initCart();
         thisApp.initBooking();
