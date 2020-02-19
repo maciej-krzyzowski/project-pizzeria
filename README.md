@@ -1,1 +1,1 @@
-pizzeria-mk.herokuapp.com
+https://pizzeria-mk.herokuapp.com
